@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Company</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+          referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="max-w-2xl mx-auto bg-white p-16" th:object="${company_info}">
+    <p th:text="'CompanyId: '+*{id}"></p>
+    <p th:text="'CompanyName: '+*{name}"></p>
+</div>
+<div class="max-w-2xl mx-auto bg-white p-16">
+    <p th:text="'ContactId: '+*{contact_info.id}"></p>
+    <p th:text="'ContactNumber: '+*{contact_info.number}"></p>
+    <p th:text="'ContactCompanyId: '+*{contact_info.companyId}"></p>
+</div>
+
+
+</body>
+</html>

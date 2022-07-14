@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+          referrerpolicy="no-referrer"/>
+</head>
+<body>
+<nav class="bg-white shadow">
+    <div class="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
+        <div class="flex justify-between items-center">
+            <div>
+                <p class="text-gray-800 text-xl font-bold md:text-2xl hover:text-gray-700" th:object="${company_info}" th:text="*{name}" ></p>
+            </div>
+        </div>
+
+
+    </div>
+</nav>
+<div class="max-w-2xl mx-auto bg-white p-16">
+
+    <form action="#" th:action="@{/contact/new_contact}" th:object="${contact_info}" method="post">
+        <div class="grid gap-6 mb-6 lg:grid-cols-2">
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Company Contact</label>
+                <input type="text" field="*{number}" name="number" placeholder="Enter company contact"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       required>
+            </div>
+            <!--            <p th:with="*{companyId}=${company_info.id}"></p>-->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Company Id</label>
+                <input type="text" field="*{companyId}" name="companyId" placeholder="Enter company Id"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       required>
+            </div>
+        </div>
+        <div>
+            <button type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Add Contact
+            </button>
+            <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<!-- component -->
+<!-- I've set max-w-screen-md, you may need to change it -->
+<!--<nav class="bg-white shadow fixed max-w-screen-md z-10 mx-auto inset-x-0 top-0 flex justify-between items-center">-->
+
+<!--    <a href="#" class="font-extrabold m-3 uppercase inline-flex hover:text-pink-700 transition-all duration-500">-->
+<!--        <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--            <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />-->
+<!--            <path fill="#fff" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />-->
+<!--            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />-->
+<!--        </svg>-->
+<!--        NEED JOB-->
+<!--    </a>-->
+
+<!--    <button id="mobileMenuButton" class="p-3 focus:outline-none md:hidden" title="Open side menu">-->
+<!--        &lt;!&ndash; SVG For "x" button &ndash;&gt;-->
+<!--        <svg id="mobileMenuButtonClose" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>-->
+<!--        &lt;!&ndash; SVG For "Menu burger" button &ndash;&gt;-->
+<!--        <svg id="mobileMenuButtonOpen" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />-->
+<!--        </svg>-->
+<!--    </button>-->
+
+<!--    &lt;!&ndash; List of nav item &ndash;&gt;-->
+<!--    <div id="sideMenuHideOnMobile" class="bg-white font-semibold z-10 rounded-bl-md flex absolute top-0 right-0 transition-all duration-500 transform translate-x-0-->
+<!--                                              w-1/2 md:w-auto-->
+<!--                                              px-3 md:px-0-->
+<!--                                              flex-col md:flex-row-->
+<!--                                              -translate-y-full md:translate-y-0-->
+<!--                                              md:mt-1 md:items-center md:mx-1 md:uppercase">-->
+<!--        <a href="#" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-pink-600 hover:text-pink-700 transition-all duration-500 py-1 sm:p-0">Project</a>-->
+<!--        <a href="#" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-pink-600 hover:text-pink-700 transition-all duration-500 py-1 sm:p-0">Resource</a>-->
+<!--        <a href="#" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-pink-600 hover:text-pink-700 transition-all duration-500 py-1 sm:p-0">About</a>-->
+<!--    </div>-->
+
+<!--</nav>-->
+
+<!--<script>-->
+<!--    var mobileMenuButton = document.getElementById("mobileMenuButton");-->
+<!--    mobileMenuButton.onclick = function() {-->
+<!--        document.getElementById("sideMenuHideOnMobile").classList.toggle("-translate-y-full");-->
+<!--        document.getElementById("sideMenuHideOnMobile").classList.toggle("mt-12");-->
+<!--        document.getElementById("sideMenuHideOnMobile").classList.toggle("shadow");-->
+<!--        document.getElementById("mobileMenuButtonClose").classList.toggle("hidden");-->
+<!--        document.getElementById("mobileMenuButtonOpen").classList.toggle("hidden");-->
+<!--    }-->
+<!--      // Hide element when click outside nav-->
+<!--    var theElementContainer = document.getElementsByTagName("nav")[0];-->
+<!--    document.addEventListener('click', function(event) {-->
+<!--        if (!theElementContainer.contains(event.target)) {-->
+<!--            document.getElementById("sideMenuHideOnMobile").classList.add("-translate-y-full");-->
+<!--            document.getElementById("sideMenuHideOnMobile").classList.remove("mt-12");-->
+<!--            document.getElementById("sideMenuHideOnMobile").classList.remove("shadow");-->
+<!--            document.getElementById("mobileMenuButtonOpen").classList.remove("hidden");-->
+<!--            document.getElementById("mobileMenuButtonClose").classList.add("hidden");-->
+<!--        }-->
+<!--    });-->
+<!--    </script>-->
