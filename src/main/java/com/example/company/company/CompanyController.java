@@ -28,7 +28,7 @@ public class CompanyController {
 
     @GetMapping("/home/{id}")
     public String addPatientData(@NotNull Model model,@PathVariable Long id) {
-        model.addAttribute("company_info", companyService.getCompanyInfo(id));
+        model.addAttribute("company_info", companyService.getCompanyInfo(id).get());
         return "company_home";
     }
 
