@@ -52,6 +52,8 @@ public class ContactController {
         model.addAttribute("contact_info", contact);
         model.addAttribute("company_info", companyService.getCompanyById(contact.getCompanyId()).stream().findFirst().get());
         addContact(contact);
+        model.addAttribute("company_data",companyService.getCompanies());
+        model.addAttribute("contact_data",contactService.getContacts());
         return "contact_confirm";
     }
 
