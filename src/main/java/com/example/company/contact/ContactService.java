@@ -1,6 +1,5 @@
 package com.example.company.contact;
 
-import com.example.company.company.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
