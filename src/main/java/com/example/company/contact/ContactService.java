@@ -35,4 +35,9 @@ public class ContactService {
     public List<Contact> getContacts() {
         return contactRepository.findAll();
     }
+
+    public Optional<Contact> getContactByCompanyId(Long companyId) {
+        return contactRepository.findByCompanyId(companyId);
+    }
+
 }
