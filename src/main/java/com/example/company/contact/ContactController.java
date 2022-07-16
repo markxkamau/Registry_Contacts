@@ -36,6 +36,12 @@ public class ContactController {
         return contactService.getContactInfo(id);
     }
 
+    @GetMapping("/company/{companyId}")
+    @ResponseBody
+    public Long getContactById(@PathVariable Long companyId){
+        return contactService.getContactByCompanyId(companyId).get().getNumber();
+    }
+
     @GetMapping("/new_contact")
     public String getContact(@NotNull Model model) {
         model.addAttribute("contact_info", new Contact());
@@ -53,7 +59,9 @@ public class ContactController {
         model.addAttribute("company_info", companyService.getCompanyById(contact.getCompanyId()).stream().findFirst().get());
         addContact(contact);
         model.addAttribute("company_data",companyService.getCompanies());
-        model.addAttribute("contact_data",contactService.getContacts());
+//        model.addAttribute("contact_data",contactService.getContacts());
+        model.addAttribute("contact_data",contactService.getContactByCompanyId(contact.getCompanyId()).get());
+        model.addAttribute("each_contact",contactService.getContactByCompanyId(contact.getCompanyId()).get().getNumber());
         return "contact_confirm";
     }
 
