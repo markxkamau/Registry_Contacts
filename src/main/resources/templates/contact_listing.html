@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Company</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+          referrerpolicy="no-referrer"/>
+</head>
+<body>
+<nav class="bg-white shadow">
+    <div class="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
+        <div class="flex justify-between items-center">
+            <p class="text-gray-800 text-xl font-bold md:text-2xl hover:text-gray-700">Contacts List</p>
+        </div>
+        <div>
+            <form class="flex">
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Company name"/>
+                <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="submit">
+                    Search
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="max-w-4xl mx-auto bg-white p-16 bg-white">
+
+    <div class="overflow-x-auto border-x border-t">
+        <table class="table-auto w-full">
+            <thead class="border-b">
+            <tr class="bg-gray-100">
+                <th class="text-left p-4 font-medium">
+                    Company Id
+                </th>
+                <th class="text-left p-4 font-medium">
+                    Company Name
+                </th>
+                <th class="text-left p-4 font-medium">
+                    Company Contact
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="border-b hover:bg-gray-50" th:each="company:${company_data}">
+                <td class="p-4" th:text="${company.id}">
+                    Prof. Lucie Waters
+                </td>
+                <td class="p-4" th:text="${company.name}">
+                    basic@example.com
+                </td>
+                <td class="p-4" th:each="contact:${contact_data}">
+                    <ul>
+                        <li th:text="${contact.number}"></li>
+                    </ul>
+                </td>
+                <td class="p-4" th:with="company_id=${company.id}">
+                    <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                       href="#" th:href="@{'/company/home/'+${company_id}}"> Add Contact</a>
+                    <!--                    <a th:href="@{/update/{id}(id=${l.id})}" ><i class="fa fa-edit" ></i></a>-->
+                    <!--                    <a th:href="@{/delete/{id}(id=${l.id})}" ><i class="fa fa-remove"></i></a>-->
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+    <div>
+        <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+           href="#" th:href="@{/company/new_company}"> New Company</a>
+    </div>
+</div>
+<!--<div class="max-w-2xl mx-auto bg-white p-16 bg-white">-->
+
+<!--    <div class="overflow-x-auto border-x border-t">-->
+<!--        <table class="table-auto w-full">-->
+<!--            <thead class="border-b">-->
+<!--            <tr class="bg-gray-100">-->
+<!--                <th class="text-left p-4 font-medium">-->
+<!--                    Contact Id-->
+<!--                </th>-->
+<!--                <th class="text-left p-4 font-medium">-->
+<!--                    Contact Number-->
+<!--                </th>-->
+<!--                <th class="text-left p-4 font-medium">-->
+<!--                    Company Id-->
+<!--                </th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr class="border-b hover:bg-gray-50" th:each="contact:${contact_data}">-->
+<!--                <td class="p-4" th:text="*{contact.id}">-->
+<!--                    Prof. Lucie Waters-->
+<!--                </td>-->
+<!--                <td class="p-4" th:text="*{contact.number}">-->
+<!--                    basic@example.com-->
+<!--                </td>-->
+<!--                <td class="p-4" th:text="*{contact.companyId}">-->
+<!--                    Administrator-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+
+</body>
+</html>

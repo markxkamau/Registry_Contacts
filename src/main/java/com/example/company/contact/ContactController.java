@@ -48,6 +48,15 @@ public class ContactController {
         return "contact_web";
     }
 
+    @GetMapping("/all_contacts")
+    public String viewAllContacts(@ModelAttribute Contact contact,@NotNull Model model){
+        model.addAttribute("company_data",companyService.getCompanies());
+        model.addAttribute("contact_data",contactService.getContacts());
+//        model.addAttribute("contact_data",contactService.getContactByCompanyId(contact.getCompanyId()));
+//        model.addAttribute("each_contact",contactService.getContactByCompanyId(contact.getCompanyId()).get().getNumber());
+        return "contact_listing";
+    }
+
     @PostMapping
     public void addContact(@RequestBody Contact contact) {
         contactService.addContact(contact);
@@ -58,10 +67,6 @@ public class ContactController {
         model.addAttribute("contact_info", contact);
         model.addAttribute("company_info", companyService.getCompanyById(contact.getCompanyId()).stream().findFirst().get());
         addContact(contact);
-        model.addAttribute("company_data",companyService.getCompanies());
-//        model.addAttribute("contact_data",contactService.getContacts());
-        model.addAttribute("contact_data",contactService.getContactByCompanyId(contact.getCompanyId()).get());
-        model.addAttribute("each_contact",contactService.getContactByCompanyId(contact.getCompanyId()).get().getNumber());
         return "contact_confirm";
     }
 
