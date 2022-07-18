@@ -1,5 +1,7 @@
 package com.example.company.company;
 
+import com.example.company.contact.Contact;
+import com.example.company.contact.ContactService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.Optional;
 @RequestMapping(value = "/company")
 public class CompanyController {
     private final CompanyService companyService;
+    @Autowired
+    private ContactService contactService;
 
     @Autowired
     public CompanyController(CompanyService companyService) {
@@ -27,7 +31,7 @@ public class CompanyController {
 
 
     @GetMapping("/home/{id}")
-    public String addPatientData(@NotNull Model model,@PathVariable Long id) {
+    public String addPatientData(@NotNull Model model, @PathVariable Long id) {
         model.addAttribute("company_info", companyService.getCompanyInfo(id).get());
         return "company_home";
     }
