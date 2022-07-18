@@ -53,5 +53,7 @@ public class CompanyService {
         companyRepository.deleteAll();
     }
 
-
+    public Optional<Company> getCompanyByName(String keyword) {
+        return companyRepository.findByName(keyword);
+    }
 }
