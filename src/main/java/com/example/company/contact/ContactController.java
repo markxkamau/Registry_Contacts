@@ -72,6 +72,7 @@ public class ContactController {
 
 
     @DeleteMapping("/{id}")
+    @ResponseBody
     public void deleteContactById(@PathVariable Long id) {
         contactService.deleteContactById(id);
     }
