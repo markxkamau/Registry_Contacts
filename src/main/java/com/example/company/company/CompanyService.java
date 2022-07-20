@@ -22,9 +22,22 @@ public class CompanyService {
         return ResponseEntity.ok(companyRepository.findAll());
     }
 
-    public List<Company> getCompanies(){
-        return  companyRepository.findAll();
+    public List<Company> getCompanies() {
+        return companyRepository.findAll();
     }
+
+    public boolean newCompanyResponse(Company company) {
+        int x = 0;
+        List<Company> companyList = companyRepository.findAll();
+        while (x < companyList.size()) {
+            if (company.getName().toLowerCase().equals(companyList.get(x).getName().toLowerCase())) {
+                return false;
+            }
+            x++;
+        }
+        return true;
+    }
+
     public void addNewCompany(Company company) {
         companyRepository.save(company);
     }

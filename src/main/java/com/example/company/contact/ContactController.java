@@ -61,6 +61,10 @@ public class ContactController {
     public String viewContacts(@ModelAttribute Contact contact, @NotNull Model model) {
         model.addAttribute("contact_info", contact);
         model.addAttribute("company_info", companyService.getCompanyById(contact.getCompanyId()).get());
+        if (contactService.confirmContact(contact) != true){
+            model.addAttribute("contact_alert","Contact already exists, Please try again");
+            return "company_home";
+        }
         addContact(contact);
         return "contact_confirm";
     }

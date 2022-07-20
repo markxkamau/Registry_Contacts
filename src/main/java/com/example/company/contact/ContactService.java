@@ -24,6 +24,17 @@ public class ContactService {
         return contactRepository.findById(id);
     }
 
+    public boolean confirmContact(Contact contact){
+        int x = 0;
+        List<Contact> contacts = contactRepository.findAll();
+        while (x < contacts.size()){
+            if (contact.getNumber().equals(contacts.get(x).getNumber())){
+                return false;
+            }
+            x++;
+        }
+        return true;
+    }
     public void addContact(Contact contact) {
         contactRepository.save(contact);
     }

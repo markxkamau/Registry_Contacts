@@ -67,6 +67,10 @@ public class CompanyController {
     @PostMapping("/new_company")
     public String viewCompanyData(@ModelAttribute Company company, @NotNull Model model) {
         model.addAttribute("company_info", company);
+        if (companyService.newCompanyResponse(company)!= true){
+            model.addAttribute("company_alert","Company already exists, Please try again");
+            return "company_web";
+        }
         addNewCompany(company);
         return "company_home";
     }
