@@ -31,9 +31,15 @@ public class CompanyController {
 
 
     @GetMapping("/home/{id}")
-    public String addPatientData(@NotNull Model model, @PathVariable Long id) {
+    public String addCompanyData(@NotNull Model model, @PathVariable Long id) {
         model.addAttribute("company_info", companyService.getCompanyInfo(id).get());
         return "company_home";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteCompanyId(@NotNull Model model, @PathVariable Long id) {
+        model.addAttribute("company_info", companyService.getCompanyInfo(id).get());
+        return "company_delete";
     }
 
     @GetMapping("/new_company")
@@ -53,6 +59,11 @@ public class CompanyController {
         companyService.addNewCompany(company);
     }
 
+    @PostMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteCompanyById(@NotNull Model model, @PathVariable Long id) {
+        companyService.deleteCompanyById(id);
+    }
     @PostMapping("/new_company")
     public String viewCompanyData(@ModelAttribute Company company, @NotNull Model model) {
         model.addAttribute("company_info", company);
