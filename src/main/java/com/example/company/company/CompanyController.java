@@ -60,15 +60,18 @@ public class CompanyController {
     }
 
     @PostMapping("/delete/{id}")
-    @ResponseBody
-    public void deleteCompanyById(@NotNull Model model, @PathVariable Long id) {
-        companyService.deleteCompanyById(id);
+    public String deleteCompanyFollowUp(@NotNull Model model, @PathVariable Long id) {
+//        deleteCompanyById(id);
+        model.addAttribute("company_data", companyService.getCompanies());
+        model.addAttribute("contact_data", contactService.getContacts());
+        return "contact_listing";
     }
+
     @PostMapping("/new_company")
     public String viewCompanyData(@ModelAttribute Company company, @NotNull Model model) {
         model.addAttribute("company_info", company);
-        if (companyService.newCompanyResponse(company)!= true){
-            model.addAttribute("company_alert","Company already exists, Please try again");
+        if (companyService.newCompanyResponse(company) != true) {
+            model.addAttribute("company_alert", "Company already exists, Please try again");
             return "company_web";
         }
         addNewCompany(company);
