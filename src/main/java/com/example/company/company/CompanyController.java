@@ -61,7 +61,7 @@ public class CompanyController {
 
     @PostMapping("/delete/{id}")
     public String deleteCompanyFollowUp(@NotNull Model model, @PathVariable Long id) {
-//        deleteCompanyById(id);
+        deleteCompanyById(id);
         model.addAttribute("company_data", companyService.getCompanies());
         model.addAttribute("contact_data", contactService.getContacts());
         return "contact_listing";
@@ -83,8 +83,8 @@ public class CompanyController {
         companyService.deleteAllCompanies();
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteCompanyById(@PathVariable Long id) {
+    public void deleteCompanyById(Long id) {
         companyService.deleteCompanyById(id);
+        contactService.deleteContactByCompanyId(id);
     }
 }
