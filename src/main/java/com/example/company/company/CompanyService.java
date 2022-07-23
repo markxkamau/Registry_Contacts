@@ -67,10 +67,6 @@ public class CompanyService {
         companyRepository.deleteAll();
     }
 
-//    public Optional<Company> getCompanyByName(String keyword) {
-//        return companyRepository.findByName(keyword);
-//    }
-
     public List<Company> getSearchData(String keyword) {
         int x = 0;
         List<Company> companyList = new ArrayList<>();
