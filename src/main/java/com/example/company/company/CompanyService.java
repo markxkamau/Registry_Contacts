@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +67,17 @@ public class CompanyService {
         companyRepository.deleteAll();
     }
 
-    public Optional<Company> getCompanyByName(String keyword) {
-        return companyRepository.findByName(keyword);
+//    public Optional<Company> getCompanyByName(String keyword) {
+//        return companyRepository.findByName(keyword);
+//    }
+
+    public List<Company> getSearchData(String keyword) {
+        int x = 0;
+        List<Company> companyList = new ArrayList<>();
+        while (x < companyRepository.findByName(keyword).size()) {
+            companyList.add(companyRepository.findByName(keyword).get(x));
+            x++;
+        }
+        return companyList;
     }
 }
