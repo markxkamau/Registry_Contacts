@@ -54,6 +54,13 @@ public class CompanyController {
         return companyService.getCompanyInfo(id);
     }
 
+    @GetMapping("/search")
+    public String searchCompanyByKeyword(Company company, Model model, String keyword) {
+        model.addAttribute("company_data", companyService.getSearchData(keyword));
+        model.addAttribute("contact_data", contactService.getContacts());
+        return "contact_listing";
+    }
+
     @PostMapping
     public void addNewCompany(@RequestBody Company company) {
         companyService.addNewCompany(company);
