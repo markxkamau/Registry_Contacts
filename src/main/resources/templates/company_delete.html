@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Company</title>
+    <title>Company Delete</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
           referrerpolicy="no-referrer"/>
 </head>
@@ -10,7 +10,8 @@
 <nav class="bg-white shadow">
     <div class="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
         <div class="flex justify-between items-center">
-            <p class="text-gray-800 text-xl font-bold md:text-2xl hover:text-gray-700" th:text="${company_info.name}+' Confirmation'" :>Contacts Confirmation</p>
+            <p class="text-gray-800 text-xl font-bold md:text-2xl hover:text-gray-700"
+               th:text="${company_info.name}+' Deleting'" :>Contacts Delete</p>
         </div>
     </div>
 </nav>
@@ -26,9 +27,6 @@
                 <th class="text-left p-4 font-medium">
                     Company Name
                 </th>
-                <th class="text-left p-4 font-medium">
-                    Company Contact
-                </th>
             </tr>
             </thead>
             <tbody>
@@ -39,18 +37,16 @@
                 <td class="p-4" th:text="${company_info.name}">
                     basic@example.com
                 </td>
-                <td class="p-4" th:text="${contact_info.number}">
-                    basic@example.com
-                </td>
-
-                <td class="p-4" >
-                    <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#" th:href="@{/contact/all_contacts}"> Confirm</a>
-
+                <td class="p-4">
+                    <form action="" th:action="@{'/company/delete/'+${company_info.id}}" method="post">
+                        <button class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                type="submit">Confirm Delete
+                        </button>
+                    </form>
                 </td>
                 <td class="p-4">
                     <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#" th:href="@{'/company/home/'+${company_info.id}}"> Edit</a>
+                       href="#" th:href="@{/contact/all_contacts}"> Back</a>
 
                 </td>
             </tr>
@@ -59,6 +55,7 @@
 
         </table>
     </div>
+
 </div>
 </body>
 </html>

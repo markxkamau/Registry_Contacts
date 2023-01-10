@@ -31,9 +31,15 @@ public class CompanyController {
 
 
     @GetMapping("/home/{id}")
-    public String addPatientData(@NotNull Model model, @PathVariable Long id) {
+    public String addCompanyData(@NotNull Model model, @PathVariable Long id) {
         model.addAttribute("company_info", companyService.getCompanyInfo(id).get());
         return "company_home";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteCompanyId(@NotNull Model model, @PathVariable Long id) {
+        model.addAttribute("company_info", companyService.getCompanyInfo(id).get());
+        return "company_delete";
     }
 
     @GetMapping("/new_company")
@@ -48,14 +54,33 @@ public class CompanyController {
         return companyService.getCompanyInfo(id);
     }
 
+    @GetMapping("/search")
+    public String searchCompanyByKeyword(Company company, Model model, String keyword) {
+        model.addAttribute("company_data", companyService.getSearchData(keyword));
+        model.addAttribute("contact_data", contactService.getContacts());
+        return "contact_listing";
+    }
+
     @PostMapping
     public void addNewCompany(@RequestBody Company company) {
         companyService.addNewCompany(company);
     }
 
+    @PostMapping("/delete/{id}")
+    public String deleteCompanyFollowUp(@NotNull Model model, @PathVariable Long id) {
+        deleteCompanyById(id);
+        model.addAttribute("company_data", companyService.getCompanies());
+        model.addAttribute("contact_data", contactService.getContacts());
+        return "contact_listing";
+    }
+
     @PostMapping("/new_company")
     public String viewCompanyData(@ModelAttribute Company company, @NotNull Model model) {
         model.addAttribute("company_info", company);
+        if (companyService.newCompanyResponse(company) != true) {
+            model.addAttribute("company_alert", "Company already exists, Please try again");
+            return "company_web";
+        }
         addNewCompany(company);
         return "company_home";
     }
@@ -65,8 +90,8 @@ public class CompanyController {
         companyService.deleteAllCompanies();
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteCompanyById(@PathVariable Long id) {
+    public void deleteCompanyById(Long id) {
         companyService.deleteCompanyById(id);
+        contactService.deleteContactByCompanyId(id);
     }
 }

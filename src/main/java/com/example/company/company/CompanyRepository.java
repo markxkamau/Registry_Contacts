@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
     @Query(value = "select * from company s where s.name like %:keyword% ", nativeQuery = true)
-    Optional<Company> findByName(@Param("keyword") String keyword);
+    List<Company> findByName(@Param("keyword") String keyword);
 
 //    Optional<Company> findByName(String keyword);
 }
