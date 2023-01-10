@@ -42,14 +42,14 @@ public class ContactController {
     @GetMapping("/new_contact")
     public String getContact(@NotNull Model model) {
         model.addAttribute("contact_info", new Contact());
-        return "contact_web";
+        return "Contact/contact_web";
     }
 
     @GetMapping("/all_contacts")
     public String viewAllContacts(@ModelAttribute Contact contact,@NotNull Model model){
         model.addAttribute("company_data",companyService.getCompanies());
         model.addAttribute("contact_data",contactService.getContacts());
-        return "contact_listing";
+        return "Contact/contact_listing";
     }
 
     @PostMapping
@@ -63,10 +63,10 @@ public class ContactController {
         model.addAttribute("company_info", companyService.getCompanyById(contact.getCompanyId()).get());
         if (contactService.confirmContact(contact) != true){
             model.addAttribute("contact_alert","Contact already exists, Please try again");
-            return "company_home";
+            return "Company/company_home";
         }
         addContact(contact);
-        return "contact_confirm";
+        return "Contact/contact_confirm";
     }
 
 
