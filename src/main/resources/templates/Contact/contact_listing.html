@@ -5,6 +5,9 @@
     <title>Company</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
           referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+          integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
 <nav class="bg-white shadow">
@@ -51,8 +54,14 @@
                 </td>
                 <td class="p-4">
                     <ul th:with="company_id = ${company.id}">
-                        <li th:each="contact:${contact_data}" th:if="${contact.companyId==company_id}"
-                            th:text="${contact.number}"></li>
+                        <li th:each="contact:${contact_data}" th:if="${contact.companyId==company_id}">
+                            <div class="flex" style="justify-content:space-between;">
+                                <p th:text="${contact.number}">Contact</p>
+                                <a th:href="@{'/contact/delete/'+${contact.id}}">
+                                    <i class="fa-sharp fa-solid fa-trash"></i>
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                 </td>
                 <td th:with="company_id=${company.id}">

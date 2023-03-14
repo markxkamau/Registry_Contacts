@@ -45,6 +45,12 @@ public class ContactController {
         return "Contact/contact_web";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteContact(@PathVariable Long id){
+        contactService.deleteContactById(id);
+        return "redirect:/contact/all_contacts";
+    }
+
     @GetMapping("/all_contacts")
     public String viewAllContacts(@ModelAttribute Contact contact,@NotNull Model model){
         model.addAttribute("company_data",companyService.getCompanies());
