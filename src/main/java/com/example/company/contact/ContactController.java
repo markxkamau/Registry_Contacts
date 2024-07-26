@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/contact")
+@RequestMapping("/registry")
 public class ContactController {
     private ContactService contactService;
     @Autowired
@@ -22,18 +22,18 @@ public class ContactController {
         this.contactService = contactService;
     }
 
-    @GetMapping
+    @GetMapping("/contact/all_contacts")
     public ResponseEntity getAllContacts() {
         return contactService.getAllContacts();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/contact/{id}")
     @ResponseBody
     public Optional<Contact> getContactInfo(@PathVariable Long id) {
         return contactService.getContactInfo(id);
     }
 
-    @GetMapping("/company/{companyId}")
+    @GetMapping("/company/contact/{companyId}")
     @ResponseBody
     public Long getContactById(@PathVariable Long companyId){
         return contactService.getContactByCompanyId(companyId).get().getNumber();
@@ -45,10 +45,10 @@ public class ContactController {
         return "Contact/contact_web";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/contact/delete/{id}")
     public String deleteContact(@PathVariable Long id){
         contactService.deleteContactById(id);
-        return "redirect:/contact/all_contacts";
+        return "redirect:/registry/all_contacts";
     }
 
     @GetMapping("/all_contacts")
@@ -58,7 +58,7 @@ public class ContactController {
         return "Contact/contact_listing";
     }
 
-    @PostMapping
+    @PostMapping("/add_contact")
     public void addContact(@RequestBody Contact contact) {
         contactService.addContact(contact);
     }

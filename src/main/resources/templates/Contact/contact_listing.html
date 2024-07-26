@@ -16,7 +16,7 @@
             <p class="text-gray-800 text-xl font-bold md:text-2xl hover:text-gray-700">Contacts List</p>
         </div>
         <div>
-            <form class="flex" th:action="@{/company/search}" method="get">
+            <form class="flex" th:action="@{/registry/search}" method="get">
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                        type="text" name="keyword" th:value="${keyword}" placeholder="Company name"/>
                 <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -57,7 +57,7 @@
                         <li th:each="contact:${contact_data}" th:if="${contact.companyId==company_id}">
                             <div class="flex" style="justify-content:space-between;">
                                 <p th:text="${contact.number}">Contact</p>
-                                <a th:href="@{'/contact/delete/'+${contact.id}}">
+                                <a th:href="@{'/registry/contact/delete/'+${contact.id}}">
                                     <i class="fa-sharp fa-solid fa-trash"></i>
                                 </a>
                             </div>
@@ -66,11 +66,11 @@
                 </td>
                 <td th:with="company_id=${company.id}">
                     <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#" th:href="@{'/company/home/'+${company_id}}"> Add Contact</a>
+                       href="#" th:href="@{'/registry/home/'+${company_id}}"> Add Contact</a>
                 </td>
                 <td>
                     <a class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                       th:href="@{'/company/delete/'+${company.id}}">
+                       th:href="@{'/registry/company/delete/'+${company.id}}">
                         Delete</a>
                 </td>
             </tr>
@@ -81,7 +81,7 @@
     </div>
     <div>
         <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-           href="#" th:href="@{/company/new_company}"> New Company</a>
+           href="#" th:href="@{/registry/new_company}"> New Company</a>
     </div>
 </div>
 </body>

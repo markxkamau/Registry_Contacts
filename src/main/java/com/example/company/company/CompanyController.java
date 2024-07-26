@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(value = "/company")
+@RequestMapping(value = "/registry")
 public class CompanyController {
     private final CompanyService companyService;
     @Autowired
@@ -24,11 +24,17 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping
+    @GetMapping("/all_companies")
     public ResponseEntity getAllCompanies() {
         return companyService.getAllCompanies();
     }
 
+    @GetMapping("/seeding")
+    public String seedData(@NotNull Model model){
+        model.addAttribute("company_data",companyService.getCompanies());
+        model.addAttribute("contact_data",contactService.getContacts());
+        return "Contact/contact_listing";
+    }
 
     @GetMapping("/home/{id}")
     public String addCompanyData(@NotNull Model model, @PathVariable Long id) {
@@ -36,7 +42,7 @@ public class CompanyController {
         return "Company/company_home";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/company/delete/{id}")
     public String deleteCompanyId(@NotNull Model model, @PathVariable Long id) {
         model.addAttribute("company_info", companyService.getCompanyInfo(id).get());
         return "Company/company_delete";
@@ -48,7 +54,7 @@ public class CompanyController {
         return "Company/company_web";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/company/{id}")
     @ResponseBody
     public Optional<Company> getCompanyInfo(@PathVariable Long id) {
         return companyService.getCompanyInfo(id);
@@ -61,12 +67,12 @@ public class CompanyController {
         return "Contact/contact_listing";
     }
 
-    @PostMapping
+    @PostMapping("/add_company")
     public void addNewCompany(@RequestBody Company company) {
         companyService.addNewCompany(company);
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/company/delete/{id}")
     public String deleteCompanyFollowUp(@NotNull Model model, @PathVariable Long id) {
         deleteCompanyById(id);
         model.addAttribute("company_data", companyService.getCompanies());
