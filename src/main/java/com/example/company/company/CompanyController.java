@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/company")
@@ -29,10 +31,13 @@ public class CompanyController {
         return companyService.getAllCompanies();
     }
 
-
     @GetMapping("/home/{id}")
     public String addCompanyData(@NotNull Model model, @PathVariable Long id) {
-        model.addAttribute("company_info", companyService.getCompanyInfo(id).get());
+        Company company = companyService.getCompanyInfo(id).get();
+        model.addAttribute("company_info", company);
+        Contact contact = new Contact();
+        contact.setCompanyId(company.getId());
+        model.addAttribute("contact_info", contact);
         return "Company/company_home";
     }
 
@@ -55,9 +60,11 @@ public class CompanyController {
     }
 
     @GetMapping("/search")
-    public String searchCompanyByKeyword(Company company, Model model, String keyword) {
+    public String searchCompanyByKeyword(@NotNull Model model, String keyword) {
+        Map<Long, List<Contact>> contactsByCompany = contactService.getContacts().stream()
+                .collect(Collectors.groupingBy(Contact::getCompanyId));
         model.addAttribute("company_data", companyService.getSearchData(keyword));
-        model.addAttribute("contact_data", contactService.getContacts());
+        model.addAttribute("contacts_by_company", contactsByCompany);
         return "Contact/contact_listing";
     }
 
@@ -69,8 +76,10 @@ public class CompanyController {
     @PostMapping("/delete/{id}")
     public String deleteCompanyFollowUp(@NotNull Model model, @PathVariable Long id) {
         deleteCompanyById(id);
+        Map<Long, List<Contact>> contactsByCompany = contactService.getContacts().stream()
+                .collect(Collectors.groupingBy(Contact::getCompanyId));
         model.addAttribute("company_data", companyService.getCompanies());
-        model.addAttribute("contact_data", contactService.getContacts());
+        model.addAttribute("contacts_by_company", contactsByCompany);
         return "Contact/contact_listing";
     }
 
@@ -82,6 +91,11 @@ public class CompanyController {
             return "Company/company_web";
         }
         addNewCompany(company);
+
+        Contact contact = new Contact();
+        contact.setCompanyId(company.getId());
+        model.addAttribute("contact_info", contact);
+
         return "Company/company_home";
     }
 

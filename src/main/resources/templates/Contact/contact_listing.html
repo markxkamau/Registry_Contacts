@@ -1,88 +1,187 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Company</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
-          referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-          integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Registry | Modern Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 20%, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 90%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .vibrant-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        }
+
+        .vibrant-button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .vibrant-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
+            transition: background 0.2s ease;
+        }
+    </style>
 </head>
+
 <body>
-<nav class="bg-white shadow">
-    <div class="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
-        <div class="flex justify-between items-center">
-            <p class="text-gray-800 text-xl font-bold md:text-2xl hover:text-gray-700">Contacts List</p>
-        </div>
-        <div>
-            <form class="flex" th:action="@{/company/search}" method="get">
-                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                       type="text" name="keyword" th:value="${keyword}" placeholder="Company name"/>
-                <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    <nav class="glass-nav sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row md:justify-between md:items-center">
+            <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                <div
+                    class="vibrant-gradient w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <i class="fa-solid fa-address-book text-white text-xl"></i>
+                </div>
+                <span
+                    class="brand-font text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 tracking-tight">
+                    RegistryPro
+                </span>
+            </div>
+            <div class="w-full md:w-auto">
+                <form class="relative group" th:action="@{/company/search}" method="get">
+                    <input
+                        class="w-full md:w-80 bg-slate-800/50 border border-slate-700 text-slate-200 text-sm rounded-2xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 outline-none transition-all py-2.5 pl-10 pr-24"
+                        type="text" name="keyword" th:value="${keyword}" placeholder="Search companies..." />
+                    <i class="fa-solid fa-search absolute left-3.5 top-3.5 text-slate-500 text-sm"></i>
+                    <button
+                        class="absolute right-1.5 top-1.5 vibrant-gradient text-white font-medium rounded-xl text-xs px-4 py-1.5 vibrant-button"
                         type="submit">
-                    Search
-                </button>
-            </form>
+                        Search
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-</nav>
-<div class="w-full mx-auto bg-white p-16 bg-white">
+    </nav>
 
-    <div class="overflow-x-auto border-x border-t">
-        <table class="table-auto w-full">
-            <thead class="border-b">
-            <tr class="bg-gray-100">
-                <th class="text-left p-4 font-medium">
-                    Company Id
-                </th>
-                <th class="text-left p-4 font-medium">
-                    Company Name
-                </th>
-                <th class="text-left p-4 font-medium">
-                    Company Contact
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="border-b hover:bg-gray-50" th:each="company:${company_data}">
-                <td class="p-4" th:text="${company.id}">
-                    Prof. Lucie Waters
-                </td>
-                <td class="p-4" th:text="${company.name}">
-                    basic@example.com
-                </td>
-                <td class="p-4">
-                    <ul th:with="company_id = ${company.id}">
-                        <li th:each="contact:${contact_data}" th:if="${contact.companyId==company_id}">
-                            <div class="flex" style="justify-content:space-between;">
-                                <p th:text="${contact.number}">Contact</p>
-                                <a th:href="@{'/contact/delete/'+${contact.id}}">
-                                    <i class="fa-sharp fa-solid fa-trash"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </td>
-                <td th:with="company_id=${company.id}">
-                    <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#" th:href="@{'/company/home/'+${company_id}}"> Add Contact</a>
-                </td>
-                <td>
-                    <a class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                       th:href="@{'/company/delete/'+${company.id}}">
-                        Delete</a>
-                </td>
-            </tr>
+    <main class="container mx-auto px-6 py-12">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h1
+                    class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300 mb-2">
+                    Company Registry</h1>
+                <p class="text-slate-400">Manage your business connections and contacts.</p>
+            </div>
+            <a th:href="@{/company/new_company}"
+                class="vibrant-gradient text-white font-semibold rounded-2xl px-6 py-3 vibrant-button flex items-center gap-2 shadow-lg shadow-indigo-500/20">
+                <i class="fa-solid fa-plus-circle"></i>
+                New Company
+            </a>
+        </div>
 
-            </tbody>
+        <div class="glass-card rounded-[2rem] overflow-hidden shadow-2xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-700/50 bg-slate-800/30">
+                            <th class="px-8 py-5 text-slate-400 font-semibold text-xs uppercase tracking-wider">ID</th>
+                            <th class="px-8 py-5 text-slate-400 font-semibold text-xs uppercase tracking-wider">Company
+                                Name</th>
+                            <th class="px-8 py-5 text-slate-400 font-semibold text-xs uppercase tracking-wider">Contacts
+                            </th>
+                            <th
+                                class="px-8 py-5 text-slate-400 font-semibold text-xs uppercase tracking-wider text-right">
+                                Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700/50">
+                        <tr class="hover:bg-slate-800/50 transition-colors duration-200"
+                            th:each="company : ${company_data}">
 
-        </table>
-    </div>
-    <div>
-        <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-           href="#" th:href="@{/company/new_company}"> New Company</a>
-    </div>
-</div>
+                            <td class="px-8 py-6">
+                                <span class="text-indigo-400 font-mono text-sm bg-indigo-500/10 px-2 py-1 rounded"
+                                    th:text="${company.id}">#123</span>
+                            </td>
+
+                            <td class="px-8 py-6">
+                                <div class="flex flex-col">
+                                    <span class="text-slate-200 font-semibold text-lg" th:text="${company.name}">Company
+                                        Name</span>
+                                </div>
+                            </td>
+
+                            <td class="px-8 py-6" th:with="companyContacts=${contacts_by_company.get(company.id)}">
+                                <div class="flex flex-wrap gap-2">
+
+                                    <div th:each="contact : ${companyContacts}"
+                                        class="flex items-center gap-2 bg-slate-700/50 px-3 py-1.5 rounded-xl border border-slate-600/50 group/contact hover:border-slate-500 transition-colors">
+                                        <span class="text-slate-200 text-sm" th:text="${contact.number}">+1 234 567
+                                            890</span>
+                                        <a th:href="@{'/contact/delete/'+${contact.id}}"
+                                            class="text-slate-400 hover:text-rose-400 transition-colors">
+                                            <i class="fa-solid fa-xmark text-xs"></i>
+                                        </a>
+                                    </div>
+
+                                    <span th:if="${#lists.isEmpty(companyContacts)}"
+                                        class="text-slate-500 italic text-sm">
+                                        No contacts
+                                    </span>
+
+                                </div>
+                            </td>
+
+                            <td class="px-8 py-6">
+                                <div class="flex justify-end gap-3">
+                                    <a th:href="@{'/company/home/'+${company.id}}"
+                                        class="bg-slate-700/80 hover:bg-slate-600 text-white font-medium rounded-xl px-4 py-2 text-sm transition-all flex items-center gap-2 border border-slate-600/50">
+                                        <i class="fa-solid fa-user-plus text-indigo-400"></i> Add
+                                    </a>
+                                    <a th:href="@{'/company/delete/'+${company.id}}"
+                                        class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 font-medium rounded-xl px-4 py-2 text-sm transition-all border border-rose-500/20">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${#lists.isEmpty(company_data)}" class="py-20 text-center">
+                <div class="bg-slate-800/50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-folder-open text-slate-600 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-300">No companies found</h3>
+                <p class="text-slate-500 mt-2">Try searching for something else or add a new company.</p>
+            </div>
+        </div>
+    </main>
 </body>
+
 </html>

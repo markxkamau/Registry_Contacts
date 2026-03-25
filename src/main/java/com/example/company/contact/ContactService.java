@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,21 +25,12 @@ public class ContactService {
     }
 
     public boolean confirmContact(Contact contact) {
-        int x = 0;
-        List<Contact> contacts = contactRepository.findAll();
-        while (x < contacts.size()) {
-            if (contact.getNumber().equals(contacts.get(x).getNumber())) {
-                return false;
-            }
-            x++;
-        }
-        return true;
+        return !contactRepository.existsByNumber(contact.getNumber());
     }
 
     public void addContact(Contact contact) {
         contactRepository.save(contact);
     }
-
 
     public List<Contact> getContacts() {
         return contactRepository.findAll();
@@ -51,19 +41,7 @@ public class ContactService {
     }
 
     public void deleteContactByCompanyId(Long id) {
-        List<Contact> allContact = contactRepository.findAll();
-        int x = 0, y = 0;
-        List<Long> contactIds = new ArrayList<>();
-        while (x < allContact.size()) {
-            if (allContact.get(x).getCompanyId().equals(id)) {
-                contactIds.add(allContact.get(x).getId());
-            }
-            x++;
-        }
-        while (y < contactIds.size()) {
-            contactRepository.deleteById(contactIds.get(y));
-            y++;
-        }
+        contactRepository.deleteByCompanyId(id);
     }
 
     public void deleteContactById(Long id) {

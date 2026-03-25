@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/contact")
@@ -53,8 +56,12 @@ public class ContactController {
 
     @GetMapping("/all_contacts")
     public String viewAllContacts(@ModelAttribute Contact contact,@NotNull Model model){
-        model.addAttribute("company_data",companyService.getCompanies());
-        model.addAttribute("contact_data",contactService.getContacts());
+        // Assuming contactData is List<Contact>
+        Map<Long, List<Contact>> contactsByCompany = contactService.getContacts().stream()
+                .collect(Collectors.groupingBy(Contact::getCompanyId));
+
+        model.addAttribute("company_data", companyService.getCompanies());
+        model.addAttribute("contacts_by_company", contactsByCompany);
         return "Contact/contact_listing";
     }
 

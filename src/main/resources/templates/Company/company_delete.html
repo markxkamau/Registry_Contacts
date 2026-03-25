@@ -1,61 +1,88 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Company Delete</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
-          referrerpolicy="no-referrer"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Company | RegistryPro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 20%, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 90%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .vibrant-button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .vibrant-button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
-<body>
-<nav class="bg-white shadow">
-    <div class="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
-        <div class="flex justify-between items-center">
-            <p class="text-gray-800 text-xl font-bold md:text-2xl hover:text-gray-700"
-               th:text="${company_info.name}+' Deleting'" :>Contacts Delete</p>
+
+<body class="flex flex-col items-center justify-center p-6">
+    <div class="w-full max-w-2xl text-center">
+        <div class="mb-8">
+            <div
+                class="bg-rose-500/10 w-20 h-20 rounded-[2rem] flex items-center justify-center shadow-xl shadow-rose-500/10 mx-auto mb-6 border border-rose-500/20">
+                <i class="fa-solid fa-triangle-exclamation text-rose-500 text-3xl"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-2">Confirm Deletion</h1>
+            <p class="text-slate-400">Are you sure you want to remove this company from the registry?</p>
         </div>
+
+        <div class="glass-card rounded-[2.5rem] overflow-hidden shadow-2xl mb-8">
+            <div class="p-8 border-b border-slate-700/50 bg-slate-800/30">
+                <div class="flex flex-col items-center">
+                    <span class="text-indigo-400 font-mono text-sm bg-indigo-500/10 px-3 py-1 rounded-full mb-3"
+                        th:text="'ID: #' + ${company_info.id}">#123</span>
+                    <h2 class="text-2xl font-bold text-white" th:text="${company_info.name}">Company Name</h2>
+                </div>
+            </div>
+            <div class="p-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <form th:action="@{'/company/delete/'+${company_info.id}}" method="post" class="w-full sm:w-auto">
+                    <button type="submit"
+                        class="bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-2xl px-8 py-4 w-full shadow-lg shadow-rose-500/20 vibrant-button flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-trash-can"></i>
+                        Confirm Delete
+                    </button>
+                </form>
+                <a th:href="@{/contact/all_contacts}"
+                    class="bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-2xl px-8 py-4 w-full sm:w-auto shadow-lg shadow-slate-900/20 vibrant-button flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-xmark"></i>
+                    Cancel
+                </a>
+            </div>
+        </div>
+
+        <p class="text-slate-500 text-sm italic">
+            <i class="fa-solid fa-circle-info mr-1"></i> This action cannot be undone. All associated contacts will be
+            lost.
+        </p>
     </div>
-</nav>
-<div class="max-w-4xl mx-auto bg-white p-16 bg-white">
-
-    <div class="overflow-x-auto border-x border-t">
-        <table class="table-auto w-full">
-            <thead class="border-b">
-            <tr class="bg-gray-100">
-                <th class="text-left p-4 font-medium">
-                    Company Id
-                </th>
-                <th class="text-left p-4 font-medium">
-                    Company Name
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="border-b hover:bg-gray-50">
-                <td class="p-4" th:text="${company_info.id}">
-                    Prof. Lucie Waters
-                </td>
-                <td class="p-4" th:text="${company_info.name}">
-                    basic@example.com
-                </td>
-                <td class="p-4">
-                    <form action="" th:action="@{'/company/delete/'+${company_info.id}}" method="post">
-                        <button class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                type="submit">Confirm Delete
-                        </button>
-                    </form>
-                </td>
-                <td class="p-4">
-                    <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#" th:href="@{/contact/all_contacts}"> Back</a>
-
-                </td>
-            </tr>
-
-            </tbody>
-
-        </table>
-    </div>
-
-</div>
 </body>
+
 </html>

@@ -28,15 +28,7 @@ public class CompanyService {
     }
 
     public boolean newCompanyResponse(Company company) {
-        int x = 0;
-        List<Company> companyList = companyRepository.findAll();
-        while (x < companyList.size()) {
-            if (company.getName().toLowerCase().equals(companyList.get(x).getName().toLowerCase())) {
-                return false;
-            }
-            x++;
-        }
-        return true;
+        return !companyRepository.existsByNameIgnoreCase(company.getName());
     }
 
     public void addNewCompany(Company company) {
@@ -68,12 +60,6 @@ public class CompanyService {
     }
 
     public List<Company> getSearchData(String keyword) {
-        int x = 0;
-        List<Company> companyList = new ArrayList<>();
-        while (x < companyRepository.findByName(keyword).size()) {
-            companyList.add(companyRepository.findByName(keyword).get(x));
-            x++;
-        }
-        return companyList;
+        return companyRepository.findByNameContaining(keyword);
     }
 }
